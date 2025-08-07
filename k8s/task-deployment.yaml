@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-api
+  namespace: taskmanager
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: task-api
+  template:
+    metadata:
+      labels:
+        app: task-api
+    spec:
+      containers:
+        - name: task-api
+          image: omar145/taskmanager-api:latest  
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URL
+              value: mongodb://root:$(MONGO_PASS)@mongo:27017/tareas?authSource=admin
+          envFrom:
+            - secretRef:
+                name: mongo-secret
