@@ -4,7 +4,7 @@ FROM node:18
 WORKDIR /app
 
 # Copiar package.json y package-lock.json desde backend
-COPY backend/package*.json ./
+COPY backend/package.json ./
 
 # Instalar dependencias
 RUN npm install
